@@ -1,0 +1,1 @@
+{"name":"agro-credit-poc","version":"1.0.0","private":true,"description":"POC estática de crédito rural baseada no Projeto Agro do Figma","scripts":{"check":"node --check dist/app.js"},"dependencies":{"motion":"^14.11.1"}}
