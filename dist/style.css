@@ -2898,3 +2898,181 @@ dialog textarea {
     padding: 12px;
   }
 }
+
+/* ==========================================================================
+   GIS MAP LEGEND OVERLAY (TecnologyX Agro CAR)
+   ========================================================================== */
+.map-gis-legend {
+  position: absolute;
+  bottom: 44px;
+  left: 14px;
+  background: rgba(14, 42, 92, 0.90);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(0, 224, 255, 0.35);
+  border-radius: 10px;
+  padding: 8px 12px;
+  color: #ffffff;
+  font-size: 11px;
+  z-index: 10;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+}
+
+.gis-legend-title {
+  display: block;
+  font-weight: 700;
+  color: #00e0ff;
+  font-size: 10px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+
+.gis-legend-items {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.gis-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #e2e8f0;
+  font-size: 10.5px;
+}
+
+.gis-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.gis-dot.rl {
+  background: #10b981;
+  box-shadow: 0 0 6px #10b981;
+}
+
+.gis-dot.app {
+  background: #00c8f8;
+  box-shadow: 0 0 6px #00c8f8;
+}
+
+.gis-dot.talhao {
+  background: #f59e0b;
+  box-shadow: 0 0 6px #f59e0b;
+}
+
+.gis-dot.ok {
+  background: #a855f7;
+  box-shadow: 0 0 6px #a855f7;
+}
+
+/* ==========================================================================
+   PROPOSALS STATUS FILTER CHIPS
+   ========================================================================== */
+.proposals-filter-chips {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.chip-filter {
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  color: #475569;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.chip-filter:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+.chip-filter.active {
+  background: #0e2a5c;
+  color: #ffffff;
+  border-color: #0e2a5c;
+  box-shadow: 0 2px 8px rgba(14, 42, 92, 0.25);
+}
+
+/* ==========================================================================
+   PRINT / PDF EXECUTIVE REPORT STYLING (@media print)
+   ========================================================================== */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    font-size: 11pt !important;
+  }
+
+  .app-sidebar,
+  .ticker-bar,
+  .btn-dossier-back,
+  .dossier-header-right,
+  .dossier-tabs-bar,
+  .map-toolbar,
+  .text-link,
+  .panel-callout,
+  .close-modal,
+  .btn-export-csv,
+  .contacts-search-box,
+  .proposals-filter-chips,
+  #toast,
+  dialog {
+    display: none !important;
+  }
+
+  .app-shell,
+  .app-main,
+  #app-content,
+  .dossier-shell,
+  .dossier-workspace {
+    display: block !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  .dossier-top-bar {
+    border: none !important;
+    border-bottom: 2px solid #0e2a5c !important;
+    padding-bottom: 12px !important;
+    margin-bottom: 16px !important;
+  }
+
+  .dossier-producer-name {
+    font-size: 20pt !important;
+    color: #0e2a5c !important;
+  }
+
+  .detail-map {
+    height: 340px !important;
+    page-break-inside: avoid !important;
+    border: 1px solid #cbd5e1 !important;
+    margin-top: 16px !important;
+    border-radius: 8px !important;
+  }
+
+  .dossier-panel {
+    width: 100% !important;
+    page-break-inside: avoid !important;
+  }
+
+  .scores .track i {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}
