@@ -73,12 +73,27 @@ if (view === 'login' && window.location.hash !== '#login') {
 let recentTab = 'properties';
 let recentFilter = '';
 let contactsFilter = '';
+let proposalStatusFilter = 'all';
 let tab = 'overview';
 let person = people[0];
 let activeProposal = null;
 let bounds = false;
 let farm = 0;
 let year = '2026';
+
+function getBarterEstimate(value, crop = 'Soja') {
+  const isMilho = /milho/i.test(crop);
+  const commName = isMilho ? 'Milho' : 'Soja';
+  const price = isMilho ? 79.80 : 137.40;
+  const bags = Math.round(value / price);
+  return {
+    crop: commName,
+    price,
+    bags,
+    formattedBags: num(bags) + ' sc',
+    text: `${num(bags)} sacas de ${commName.toLowerCase()} (R$ ${price.toFixed(2).replace('.', ',')}/sc 60kg)`
+  };
+}
 
 const $ = s => document.querySelector(s);
 const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -559,8 +574,17 @@ function renderDossierView() {
           <div id="interactive-map" class="live-map"></div>
           <div class="map-status" role="status">Carregando mapa interativo…</div>
           <div class="map-toolbar">
-            <button class="map-style" data-action="map-style">Ruas</button>
+            <button class="map-style" data-action="map-style">Satélite / Ruas</button>
             <button class="map-boundaries" data-action="bounds" aria-pressed="${bounds}">${bounds ? 'Ocultar' : 'Exibir'} limites</button>
+          </div>
+          <div class="map-gis-legend">
+            <span class="gis-legend-title">Camadas CAR & Satélite</span>
+            <div class="gis-legend-items">
+              <span class="gis-item"><span class="gis-dot rl"></span> Reserva Legal (RL)</span>
+              <span class="gis-item"><span class="gis-dot app"></span> APP Hídrica</span>
+              <span class="gis-item"><span class="gis-dot talhao"></span> Área Produtiva</span>
+              <span class="gis-item"><span class="gis-dot ok"></span> Zero Embargos</span>
+            </div>
           </div>
           <div class="map-footer">
             <span>${esc(person.city)} / ${esc(person.state)}</span>
@@ -780,6 +804,7 @@ function renderContactsHub(activeTab = 'contacts') {
   });
 
   const filteredProposals = state.proposals.filter(pr => {
+    if (proposalStatusFilter !== 'all' && pr.status !== proposalStatusFilter) return false;
     if (!query) return true;
     const produtor = people.find(x => x.id === pr.person)?.name || '';
     return (pr.id + ' ' + produtor + ' ' + pr.purpose + ' ' + pr.status).toLowerCase().includes(query);
@@ -907,6 +932,14 @@ function renderContactsHub(activeTab = 'contacts') {
           </div>
 
           <div class="contacts-toolbar-right">
+            ${!isContacts ? `
+              <div class="proposals-filter-chips">
+                <button class="chip-filter ${proposalStatusFilter === 'all' ? 'active' : ''}" data-status-filter="all">Todas (${state.proposals.length})</button>
+                <button class="chip-filter ${proposalStatusFilter === 'Em análise' ? 'active' : ''}" data-status-filter="Em análise">Em análise (${emAnalise})</button>
+                <button class="chip-filter ${proposalStatusFilter === 'Aprovada' ? 'active' : ''}" data-status-filter="Aprovada">Aprovadas (${aprovadas})</button>
+                <button class="chip-filter ${proposalStatusFilter === 'Recusada' ? 'active' : ''}" data-status-filter="Recusada">Recusadas (${state.proposals.length - aprovadas - emAnalise})</button>
+              </div>
+            ` : ''}
             <div class="contacts-search-box">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="11" cy="11" r="8"></circle>
@@ -1056,7 +1089,10 @@ function renderProposalsTable(list) {
                 <span class="purpose-pill">${esc(p.purpose)}</span>
               </td>
               <td>
-                <strong class="proposal-value">${money(p.value)}</strong>
+                <div style="display: flex; flex-direction: column; gap: 2px;">
+                  <strong class="proposal-value">${money(p.value)}</strong>
+                  <small style="font-size: 11px; color: #0284c7; font-weight: 600;" title="Equivalente em sacas na cotação atual (Barter)">🌾 ${getBarterEstimate(p.value, produtor.crop || p.purpose).formattedBags} ${getBarterEstimate(p.value, produtor.crop || p.purpose).crop.toLowerCase()}</small>
+                </div>
               </td>
               <td>
                 <span class="term-badge">${p.term} meses</span>
@@ -1147,16 +1183,45 @@ function proposalModal(p = null) {
   activeProposal = p;
   if (p) {
     const curPerson = people.find(x => x.id === p.person) || people[0];
-    modal('Análise da proposta', esc(p.id) + ' · ' + curPerson.name, `
+    const barter = getBarterEstimate(p.value, curPerson.crop || p.purpose);
+    const limitPct = Math.min(100, Math.round((p.value / (curPerson.limit || 1)) * 100));
+    const isApproved = p.status === 'Aprovada';
+    modal('Análise da proposta de crédito', esc(p.id) + ' · ' + curPerson.name, `
       <div class="decision-summary">
-        <strong>${money(p.value)}</strong>
+        <div>
+          <strong style="font-size:22px;color:#0e2a5c;">${money(p.value)}</strong>
+          <span style="display:block;font-size:12px;color:#0284c7;font-weight:600;margin-top:2px;">
+            🌾 Barter: ${barter.text}
+          </span>
+        </div>
         <span class="badge ${/Aprov/.test(p.status) ? 'green' : /Recus/.test(p.status) ? 'red' : ''}">${esc(p.status)}</span>
       </div>
-      <p style="font-size:13px;color:#6a7282;margin-bottom:8px">${esc(p.purpose)} · ${esc(p.term)} meses</p>
-      <p style="font-size:12px;color:var(--muted)">Limite de referência: ${money(curPerson.limit)}</p>
-      <label style="margin-top:14px">
-        Parecer do analista
-        <textarea id="opinion" placeholder="Justifique a decisão da concessão de crédito...">${esc(p.opinion)}</textarea>
+
+      <div class="proposal-meta-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0;padding:12px;background:#f8fafc;border-radius:10px;border:1px solid #e2e8f0;font-size:12px;">
+        <div><span style="color:#64748b;">Finalidade:</span> <strong>${esc(p.purpose)}</strong></div>
+        <div><span style="color:#64748b;">Prazo amortização:</span> <strong>${esc(p.term)} meses</strong></div>
+        <div><span style="color:#64748b;">Limite referência:</span> <strong>${money(curPerson.limit)}</strong></div>
+        <div><span style="color:#64748b;">Comprometimento:</span> <strong style="color:${limitPct > 90 ? '#dc2626' : '#16a34a'}">${limitPct}% do teto</strong></div>
+      </div>
+
+      ${isApproved ? `
+        <div class="cpr-formalizacao-box" style="margin-bottom:14px;padding:12px 14px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+            <strong style="color:#166534;font-size:12.5px;">✓ Cédula de Produto Rural (CPR) Nº ${esc(p.id.replace('PR-', 'CPR-'))}</strong>
+            <span class="badge green">Minuta Pronta</span>
+          </div>
+          <p style="font-size:11.5px;color:#15803d;margin:0 0 6px 0;line-height:1.4;">
+            Garantia fiduciária vinculada à safra 2026/27. Penhor agrícola de ${barter.formattedBags} ${barter.crop.toLowerCase()} registrado em cartório.
+          </p>
+          <div style="font-size:10.5px;font-family:monospace;color:#475569;background:#ffffff;padding:4px 8px;border-radius:6px;border:1px solid #dcfce7;">
+            CHAVE-ICP: 0x${esc(p.id.replace(/\D/g, ''))}a8f9c42b7d1e06
+          </div>
+        </div>
+      ` : ''}
+
+      <label style="margin-top:10px">
+        Parecer técnico do analista
+        <textarea id="opinion" placeholder="Justifique a decisão da concessão de crédito, garantias e condições comerciais...">${esc(p.opinion)}</textarea>
       </label>
       <p id="decision-error" class="form-error" role="alert"></p>
       <div class="decision-actions">
@@ -1260,6 +1325,12 @@ document.addEventListener('click', e => {
     bounds = true;
     render();
     toast('Propriedade selecionada no mapa interativo.');
+    return;
+  }
+
+  if (d.statusFilter) {
+    proposalStatusFilter = d.statusFilter;
+    render();
     return;
   }
 
