@@ -5,6 +5,15 @@
 }
 
 :root {
+  color-scheme: light dark;
+
+  &:has(> head > meta[name="color-scheme"][content="dark"]) {
+    color-scheme: dark;
+  }
+  &:has(> head > meta[name="color-scheme"][content="light"]) {
+    color-scheme: light;
+  }
+
   /* TecnologyX (TX) Brand Identity */
   --tx-navy: #0e2a5c;
   --tx-navy-dark: #061428;
@@ -3074,5 +3083,610 @@ dialog textarea {
   .scores .track i {
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
+  }
+}
+
+/* ==========================================================================
+   TECNOLOGYX AGRO — DARK MODE THEME SYSTEM
+   ========================================================================== */
+
+:root:has(> head > meta[name="color-scheme"][content="dark"]),
+:root.dark,
+html.dark {
+  --bg: #070e1c;
+  --card-bg: #0c1830;
+  --text: #f8fafc;
+  --text-muted: #94a3b8;
+  --muted: #64748b;
+  --line: rgba(255, 255, 255, 0.08);
+  --border: rgba(0, 224, 255, 0.18);
+  --navy: #00c8f8;
+  --navy-dark: #070e1c;
+  --wine-badge: #00e0ff;
+  --wine-light: rgba(0, 200, 248, 0.12);
+  --tx-tint: rgba(0, 200, 248, 0.12);
+  --tx-tint-border: rgba(0, 200, 248, 0.35);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:has(> head > meta[name="color-scheme"][content="light dark"]) {
+    --bg: #070e1c;
+    --card-bg: #0c1830;
+    --text: #f8fafc;
+    --text-muted: #94a3b8;
+    --muted: #64748b;
+    --line: rgba(255, 255, 255, 0.08);
+    --border: rgba(0, 224, 255, 0.18);
+    --navy: #00c8f8;
+    --navy-dark: #070e1c;
+    --wine-badge: #00e0ff;
+    --wine-light: rgba(0, 200, 248, 0.12);
+    --tx-tint: rgba(0, 200, 248, 0.12);
+    --tx-tint-border: rgba(0, 200, 248, 0.35);
+  }
+}
+
+/* Sidebar Theme Toggle Button */
+.sidebar-theme-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #94a3b8;
+  cursor: pointer;
+  margin-bottom: 8px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sidebar-theme-btn:hover {
+  background: rgba(0, 200, 248, 0.15);
+  color: #00e0ff;
+  border-color: rgba(0, 200, 248, 0.4);
+  transform: scale(1.05);
+}
+
+.sidebar-theme-btn .icon-sun {
+  display: none;
+}
+.sidebar-theme-btn .icon-moon {
+  display: block;
+}
+
+:root:has(> head > meta[name="color-scheme"][content="dark"]) .sidebar-theme-btn .icon-sun,
+:root.dark .sidebar-theme-btn .icon-sun,
+html.dark .sidebar-theme-btn .icon-sun {
+  display: block;
+  color: #fbbf24;
+}
+
+:root:has(> head > meta[name="color-scheme"][content="dark"]) .sidebar-theme-btn .icon-moon,
+:root.dark .sidebar-theme-btn .icon-moon,
+html.dark .sidebar-theme-btn .icon-moon {
+  display: none;
+}
+
+/* Login Screen Theme Toggle Button */
+.login-theme-toggle-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #f8fafc;
+  cursor: pointer;
+  z-index: 50;
+  transition: all 0.18s ease;
+}
+
+.login-theme-toggle-btn:hover {
+  background: rgba(0, 200, 248, 0.2);
+  border-color: #00e0ff;
+  transform: scale(1.05);
+}
+
+.login-theme-toggle-btn .icon-sun {
+  display: none;
+}
+.login-theme-toggle-btn .icon-moon {
+  display: block;
+}
+
+:root:has(> head > meta[name="color-scheme"][content="dark"]) .login-theme-toggle-btn .icon-sun,
+:root.dark .login-theme-toggle-btn .icon-sun,
+html.dark .login-theme-toggle-btn .icon-sun {
+  display: block;
+  color: #fbbf24;
+}
+
+:root:has(> head > meta[name="color-scheme"][content="dark"]) .login-theme-toggle-btn .icon-moon,
+:root.dark .login-theme-toggle-btn .icon-moon,
+html.dark .login-theme-toggle-btn .icon-moon {
+  display: none;
+}
+
+/* Dark Mode Overrides for UI Components */
+:root:has(> head > meta[name="color-scheme"][content="dark"]),
+:root.dark,
+html.dark {
+  /* Ticker Bar */
+  .ticker-bar {
+    background: #091326;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .ticker-quote .quote-name {
+    color: #cbd5e1;
+  }
+  .ticker-quote .quote-price {
+    color: #ffffff;
+  }
+  .ticker-label {
+    background: rgba(0, 200, 248, 0.12);
+    color: #00e0ff;
+    border-color: rgba(0, 200, 248, 0.25);
+  }
+
+  /* Sidebar */
+  .app-sidebar {
+    background: #050b16;
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  /* Home Recent Card */
+  .recent-card {
+    background: #0c1830;
+    border: 1px solid rgba(0, 224, 255, 0.18);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+  }
+  .recent-title {
+    color: #ffffff;
+  }
+  .recent-search-wrap {
+    background: #081224;
+    border-color: rgba(255, 255, 255, 0.12);
+  }
+  .recent-search-input {
+    background: transparent;
+    color: #f8fafc;
+  }
+  .recent-tab-pill {
+    background: rgba(255, 255, 255, 0.05);
+    color: #94a3b8;
+  }
+  .recent-tab-pill.active {
+    background: rgba(0, 200, 248, 0.15);
+    color: #00e0ff;
+    border: 1px solid rgba(0, 200, 248, 0.4);
+  }
+  .recent-item {
+    background: rgba(255, 255, 255, 0.02);
+    border-color: rgba(255, 255, 255, 0.06);
+  }
+  .recent-item:hover {
+    background: rgba(0, 200, 248, 0.08);
+    border-color: rgba(0, 200, 248, 0.3);
+  }
+  .recent-item-title {
+    color: #f8fafc;
+  }
+  .recent-item-meta {
+    color: #94a3b8;
+  }
+  .recent-arrow {
+    background: #081224;
+    color: #00e0ff;
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  /* Dossier Header & Tabs */
+  .dossier-top-bar {
+    background: #0c1830;
+    border: 1px solid rgba(0, 224, 255, 0.18);
+  }
+  .btn-dossier-back {
+    background: #081224;
+    border-color: rgba(255, 255, 255, 0.12);
+    color: #e2e8f0;
+  }
+  .btn-dossier-back:hover {
+    background: rgba(0, 200, 248, 0.15);
+    color: #00e0ff;
+    border-color: rgba(0, 200, 248, 0.4);
+  }
+  .dossier-producer-name {
+    color: #ffffff;
+  }
+  .dossier-meta-tag {
+    background: rgba(255, 255, 255, 0.06);
+    color: #cbd5e1;
+  }
+  .dossier-tabs-bar {
+    background: #0c1830;
+    border: 1px solid rgba(0, 224, 255, 0.18);
+  }
+  .dossier-tab-btn {
+    color: #94a3b8;
+  }
+  .dossier-tab-btn:hover {
+    color: #00e0ff;
+    background: rgba(0, 200, 248, 0.08);
+  }
+  .dossier-tab-btn.active {
+    color: #00e0ff;
+    background: rgba(0, 200, 248, 0.16);
+    border-color: rgba(0, 200, 248, 0.4);
+  }
+
+  /* Dossier Panel */
+  .dossier-panel {
+    background: #0c1830;
+    border: 1px solid rgba(0, 224, 255, 0.18);
+  }
+  .identity {
+    background: rgba(0, 200, 248, 0.06);
+    border: 1px solid rgba(0, 200, 248, 0.2);
+  }
+  .identity-heading h1 {
+    color: #00e0ff;
+  }
+  .identity p {
+    color: #cbd5e1;
+  }
+  .identity p b {
+    color: #ffffff;
+  }
+  .section-title {
+    color: #00e0ff;
+  }
+  .scores {
+    color: #e2e8f0;
+  }
+  .scores .track {
+    background: rgba(255, 255, 255, 0.08);
+  }
+  .deforest-head h2 {
+    color: #ffffff;
+  }
+  #year-select {
+    background: #081224;
+    border-color: rgba(255, 255, 255, 0.15);
+    color: #f8fafc;
+  }
+  .environment-stats > div {
+    background: #081224;
+    border-color: rgba(255, 255, 255, 0.08);
+    color: #f1f5f9;
+  }
+  .environment-stats strong {
+    color: #ffffff;
+  }
+  .environment-stats span {
+    color: #94a3b8;
+  }
+  .gauge {
+    background: #081224;
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+  .gauge strong {
+    color: #ffffff;
+  }
+  .panel-callout {
+    background: rgba(0, 200, 248, 0.08);
+    border-color: rgba(0, 200, 248, 0.25);
+  }
+  .panel-callout h3 {
+    color: #00e0ff;
+  }
+  .panel-callout p {
+    color: #cbd5e1;
+  }
+  .details div {
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+  .details dt {
+    color: #94a3b8;
+  }
+  .details dd {
+    color: #f8fafc;
+  }
+  .farm-card {
+    background: #081224;
+    border-color: rgba(255, 255, 255, 0.08);
+    color: #f8fafc;
+  }
+  .farm-card:hover, .farm-card.chosen {
+    border-color: #00e0ff;
+    background: rgba(0, 200, 248, 0.1);
+  }
+  .farm-card strong {
+    color: #ffffff;
+  }
+  .check-row {
+    background: rgba(255, 255, 255, 0.02);
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+  .check-row summary {
+    color: #f1f5f9;
+  }
+  .check-row p {
+    color: #94a3b8;
+  }
+  .financial-cards > div {
+    background: #081224;
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+  .financial-cards strong {
+    color: #00e0ff;
+  }
+  .financial-cards span {
+    color: #94a3b8;
+  }
+  .proposal-mini {
+    background: #081224;
+    border-color: rgba(255, 255, 255, 0.08);
+    color: #f8fafc;
+  }
+  .proposal-mini:hover {
+    border-color: #00e0ff;
+    background: rgba(0, 200, 248, 0.08);
+  }
+  .file-row {
+    background: #081224;
+    border-color: rgba(255, 255, 255, 0.08);
+    color: #f8fafc;
+  }
+  .file-row strong {
+    color: #ffffff;
+  }
+  .timeline article {
+    background: #081224;
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+  .timeline article strong {
+    color: #ffffff;
+  }
+  .timeline article p {
+    color: #94a3b8;
+  }
+  .detail-map {
+    border: 1px solid rgba(0, 224, 255, 0.18);
+  }
+  .map-toolbar button {
+    background: #081224;
+    border-color: rgba(255, 255, 255, 0.15);
+    color: #f8fafc;
+  }
+  .map-toolbar button:hover {
+    background: rgba(0, 200, 248, 0.15);
+    color: #00e0ff;
+  }
+  .map-footer {
+    background: rgba(7, 14, 28, 0.92);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: #cbd5e1;
+  }
+
+  /* Contacts & Contracts Page */
+  .contacts-header-title {
+    color: #ffffff;
+  }
+  .contacts-header-subtitle {
+    color: #94a3b8;
+  }
+  .kpi-card {
+    background: #0c1830;
+    border: 1px solid rgba(0, 224, 255, 0.18);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  }
+  .kpi-label {
+    color: #94a3b8;
+  }
+  .kpi-value {
+    color: #ffffff;
+  }
+  .contacts-table-container {
+    background: #0c1830;
+    border: 1px solid rgba(0, 224, 255, 0.18);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  }
+  .contacts-table-toolbar {
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+  .contacts-tab-btn {
+    background: rgba(255, 255, 255, 0.05);
+    color: #94a3b8;
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+  .contacts-tab-btn.active {
+    background: #0e2a5c;
+    color: #00e0ff;
+    border-color: rgba(0, 224, 255, 0.4);
+  }
+  .contacts-count-pill {
+    background: rgba(255, 255, 255, 0.08);
+    color: #e2e8f0;
+  }
+  .contacts-tab-btn.active .contacts-count-pill {
+    background: rgba(0, 200, 248, 0.2);
+    color: #00e0ff;
+  }
+  .contacts-search-box {
+    background: #081224;
+    border-color: rgba(255, 255, 255, 0.12);
+  }
+  .contacts-search-input {
+    background: transparent;
+    color: #f8fafc;
+  }
+  .btn-export-csv {
+    background: #081224;
+    border-color: rgba(255, 255, 255, 0.14);
+    color: #e2e8f0;
+  }
+  .btn-export-csv:hover {
+    background: rgba(0, 200, 248, 0.12);
+    border-color: rgba(0, 200, 248, 0.4);
+    color: #00e0ff;
+  }
+  .tx-data-table th {
+    background: #07101f;
+    color: #94a3b8;
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+  .tx-table-row {
+    border-color: rgba(255, 255, 255, 0.06);
+  }
+  .tx-table-row:hover {
+    background: rgba(0, 200, 248, 0.06);
+  }
+  .producer-name {
+    color: #f8fafc;
+  }
+  .proposal-code {
+    color: #00e0ff;
+  }
+  .proposal-value {
+    color: #ffffff;
+  }
+  .term-badge {
+    background: #081224;
+    color: #cbd5e1;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .purpose-pill {
+    background: rgba(0, 200, 248, 0.1);
+    color: #00e0ff;
+    border: 1px solid rgba(0, 200, 248, 0.25);
+  }
+  .btn-action-secondary {
+    background: #081224;
+    border-color: rgba(255, 255, 255, 0.15);
+    color: #e2e8f0;
+  }
+  .btn-action-secondary:hover {
+    background: rgba(0, 200, 248, 0.1);
+    border-color: rgba(0, 200, 248, 0.4);
+    color: #00e0ff;
+  }
+  .chip-filter {
+    background: #081224;
+    border-color: rgba(255, 255, 255, 0.12);
+    color: #94a3b8;
+  }
+  .chip-filter:hover {
+    background: rgba(0, 200, 248, 0.1);
+    color: #00e0ff;
+  }
+  .chip-filter.active {
+    background: #00c8f8;
+    color: #07101f;
+    border-color: #00c8f8;
+  }
+
+  /* Modals */
+  dialog {
+    background: #0c1830;
+    border: 1px solid rgba(0, 224, 255, 0.3);
+    color: #f8fafc;
+    box-shadow: 0 25px 80px rgba(0, 0, 0, 0.8), 0 0 30px rgba(0, 200, 248, 0.15);
+  }
+  dialog h2 {
+    color: #00e0ff;
+  }
+  .modal-desc {
+    color: #94a3b8;
+  }
+  dialog label {
+    color: #cbd5e1;
+  }
+  dialog input, dialog select, dialog textarea {
+    background: #07101f;
+    border-color: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+  }
+  dialog input:focus, dialog select:focus, dialog textarea:focus {
+    border-color: #00c8f8;
+    box-shadow: 0 0 0 3px rgba(0, 200, 248, 0.25);
+  }
+  .demo-examples {
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+  .demo-examples > span {
+    color: #64748b;
+  }
+  .demo-examples button {
+    background: #081224;
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+  .demo-examples button:hover {
+    background: rgba(0, 200, 248, 0.12);
+    border-color: rgba(0, 200, 248, 0.4);
+  }
+  .demo-examples button strong {
+    color: #ffffff;
+  }
+  .demo-examples button small {
+    color: #94a3b8;
+  }
+  .decision-summary {
+    background: #081224;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .close-modal {
+    color: #94a3b8;
+  }
+  .close-modal:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+  }
+  button.outline {
+    background: #081224;
+    border-color: rgba(255, 255, 255, 0.15);
+    color: #e2e8f0;
+  }
+  button.outline:hover {
+    background: rgba(0, 200, 248, 0.1);
+    border-color: rgba(0, 200, 248, 0.4);
+    color: #00e0ff;
+  }
+
+  /* Login Screen in Dark Mode */
+  .login-screen {
+    background: #07101f;
+  }
+  .login-left-panel {
+    background: #0a1426;
+  }
+  .login-form-box {
+    color: #f8fafc;
+  }
+  .login-field label {
+    color: #cbd5e1;
+  }
+  .login-input {
+    background: #07101f;
+    border-color: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+  }
+  .login-input:focus {
+    border-color: #00c8f8;
+    box-shadow: 0 0 0 3px rgba(0, 200, 248, 0.25);
+  }
+  .btn-eye-toggle {
+    color: #94a3b8;
+  }
+  .btn-eye-toggle:hover {
+    color: #00e0ff;
   }
 }
