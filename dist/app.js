@@ -96,8 +96,7 @@ function getBarterEstimate(value, crop = 'Soja') {
 }
 
 function toggleTheme() {
-  const isCurrentlyDark = document.documentElement.classList.contains('dark') || 
-    (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches && !localStorage.getItem('color-scheme'));
+  const isCurrentlyDark = document.documentElement.classList.contains('dark');
 
   const newTheme = isCurrentlyDark ? 'light' : 'dark';
   

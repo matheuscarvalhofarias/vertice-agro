@@ -4,14 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="description" content="TecnologyX Agro — Inteligência de Crédito Rural, Dados e Automação">
-  <meta name="color-scheme" content="light dark">
+  <meta name="color-scheme" content="light">
   <script>
     (function() {
       try {
-        var s = localStorage.getItem('color-scheme') || 'light dark';
+        var s = localStorage.getItem('color-scheme') === 'dark' ? 'dark' : 'light';
         var meta = document.querySelector('meta[name="color-scheme"]');
         if (meta) meta.content = s;
-        var isDark = s === 'dark' || (s === 'light dark' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        var isDark = s === 'dark';
         if (isDark) document.documentElement.classList.add('dark');
       } catch (e) {}
     })();
